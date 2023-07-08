@@ -1,0 +1,73 @@
+@import 'https://fonts.googleapis.com/css2?family=Courgette&family=Philosopher&display=swap';
+/*
+    Global color variables
+*/
+/*
+    Global font variables
+*/
+/*
+    Global size variables
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Philosopher", sans-serif;
+}
+
+body {
+  background-color: #f9f9f9;
+  position: relative;
+  height: 100vh;
+  padding-top: 66px;
+}
+body header {
+  height: 66px;
+  z-index: 1;
+}
+body header .navbar {
+  background: #dfa0c9;
+  width: 100%;
+}
+body main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  overflow: clip auto;
+  padding-top: 66px;
+}
+body main section {
+  min-height: 100%;
+  scroll-snap-align: end;
+}
+body footer {
+  position: relative;
+}
+
+@media (min-width: 576px) {
+  section {
+    padding: 1rem !important;
+  }
+}
+@media (min-width: 768px) {
+  section {
+    padding: 2rem !important;
+  }
+}
+@media (min-width: 992px) {
+  section {
+    padding: 3rem !important;
+  }
+}
+@media (min-width: 1200px) {
+  section {
+    padding: 4rem !important;
+  }
+}
+@media (min-width: 1400px) {
+  section {
+    padding: 5rem !important;
+  }
+}/*# sourceMappingURL=layout.css.map */
