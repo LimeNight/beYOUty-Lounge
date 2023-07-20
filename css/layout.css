@@ -18,13 +18,14 @@ body {
   background-color: #f9f9f9;
   position: relative;
   height: 100vh;
-  padding-top: 66px;
+  padding-top: 56px;
 }
 body header {
-  height: 66px;
+  height: 56px;
   z-index: 1;
 }
 body header .navbar {
+  height: 56px;
   background: #dfa0c9;
   width: 100%;
 }
@@ -36,11 +37,11 @@ body main {
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   overflow: clip auto;
-  padding-top: 66px;
+  padding-top: 56px;
 }
 body main section {
   min-height: 100%;
-  scroll-snap-align: end;
+  scroll-snap-align: center;
 }
 body footer {
   position: relative;

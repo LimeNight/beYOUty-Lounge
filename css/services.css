@@ -19,8 +19,6 @@
   padding: 0 !important;
 }
 .services__container {
-  display: grid;
-  grid-template-columns: 100px auto;
   position: relative;
   padding: 0;
   width: 100%;
@@ -28,56 +26,18 @@
   background: url("../svg/backgrounds/wave-bg.svg") no-repeat center;
   background-size: cover;
 }
-.services__container-menu {
-  height: 100%;
-  min-width: 100%;
-  background: #dfa0c9;
+.services__container-menu-label {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
 }
-.services__container-menu-list {
-  list-style-type: none;
-  padding: 0;
-}
-.services__container-menu-list-item {
-  margin-bottom: 5px;
-  font-size: 0.8em;
-}
-.services__container-menu-list-item-btn {
-  text-align: start;
-  background: rgba(255, 255, 255, 0.2);
-  color: #323232;
+.services__container-menu-select {
   width: 100%;
   border: none;
 }
-.services__container-menu-list-item-btn:hover, .services__container-menu-list-item-btn:active {
-  background: rgba(255, 255, 255, 0.5);
+.services__container-menu-select-option {
+  background-color: goldenrod;
 }
 .services__container-content {
-  background: #f9f9f9;
-}
-.services__container-content-list {
-  list-style-type: none;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  color: #323232;
-  font-size: 0.8em;
-}
-.services__container-content-list-item {
-  display: flex;
-  justify-content: space-between;
-  text-align: start;
-  padding: 10px;
-  background: rgba(248, 149, 100, 0.2);
-  margin-bottom: 5px;
-}
-.services__container-content-list-item .title {
-  font-weight: bold;
-}
-.services__container-content-list-item .price {
-  position: relative;
-}
-.services__container-content-list-item .price::after {
-  content: "Ft.-";
-  position: relative;
+  background-color: lightcoral;
 }/*# sourceMappingURL=services.css.map */
