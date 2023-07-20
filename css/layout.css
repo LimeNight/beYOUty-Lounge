@@ -15,7 +15,7 @@
 }
 
 body {
-  background-color: #f9f9f9;
+  background-color: #a6eaff;
   position: relative;
   height: 100vh;
   padding-top: 56px;
@@ -23,11 +23,6 @@ body {
 body header {
   height: 56px;
   z-index: 1;
-}
-body header .navbar {
-  height: 56px;
-  background: #dfa0c9;
-  width: 100%;
 }
 body main {
   display: flex;
