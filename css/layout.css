@@ -15,33 +15,32 @@
 }
 
 body {
-  background-color: #f9f9f9;
+  background-color: #ffd7f1;
   position: relative;
   height: 100vh;
-  padding-top: 56px;
 }
 body header {
   height: 56px;
   z-index: 1;
 }
-body header .navbar {
-  height: 56px;
-  background: #dfa0c9;
-  width: 100%;
-}
 body main {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: 100%;
+  padding: 0 !important;
+  top: 56px;
+  position: fixed;
+  height: calc(100vh - 56px);
+  overflow: scroll;
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  overflow: clip auto;
-  padding-top: 56px;
 }
 body main section {
-  min-height: 100%;
-  scroll-snap-align: center;
+  min-height: calc(50vh - 56px);
+  padding: 26px 0;
+}
+body main section:first-child {
+  height: 100vh;
+  min-height: 100vh;
+}
+body main section:nth-child(even) {
+  background-color: greenyellow;
 }
 body footer {
   position: relative;

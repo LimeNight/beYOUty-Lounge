@@ -14,11 +14,33 @@
   font-family: "Philosopher", sans-serif;
 }
 
+.navbar {
+  height: 56px;
+  width: 100%;
+  background: #ffd7f1;
+}
+.navbar .container-fluid {
+  background-color: inherit;
+}
+.navbar *,
+.navbar *:hover {
+  color: #0c140e;
+}
+
+.dropdown-menu {
+  background: #A8DBBA;
+}
+.dropdown-menu a:hover {
+  background-color: #A8DBBA;
+  color: black;
+}
+
 .navbar-brand {
   padding: 0;
-  height: 56px;
+  height: 40px;
+  width: 130px;
   aspect-ratio: 1;
-  background: url("../svg/logos/b_2.svg") no-repeat center;
+  background: url("../svg/logos/bl2.svg") no-repeat center;
   background-size: cover;
-  filter: drop-shadow(0 0 1px #323232);
+  filter: drop-shadow(0 0 2px #333);
 }/*# sourceMappingURL=nav.css.map */

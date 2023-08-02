@@ -1,70 +1,7 @@
-<!DOCTYPE html>
-<html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="./js/main.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <title>beYOUty Lounge</title>
-</head>
-
-<body onload="init()">
-    <header class="fixed-top">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand mx-auto" href="#home"></a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav w-100 justify-content-evenly">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#home">Kezdőlap</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Szolgáltatások
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#services" data-id="1"
-                                        onclick="getService(+this.dataset.id)">Kozmetika</a></li>
-                                <li><a class="dropdown-item" href="#services" data-id="2"
-                                        onclick="getService(+this.dataset.id)">Manikűr</a></li>
-                                <li><a class="dropdown-item" href="#services" data-id="3"
-                                        onclick="getService(+this.dataset.id)">Fodrászat</a></li>
-                                <li><a class="dropdown-item" href="#services" data-id="4"
-                                        onclick="getService(+this.dataset.id)">Masszázs</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./pages/galery/galery.html">Galéria</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Kapcsolat</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container-fluid">
-
-        <section class="home px-0" id="home">
-            <!-- background image -->
-            <div class="home__bg">
-                <div class="home__bg-filter"></div>
-            </div>
-            <svg class="home__logo" xmlns:mydata="http://www.w3.org/2000/svg" version="1.1"
-                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            <svg xmlns:mydata="http://www.w3.org/2000/svg" mydata:contrastcolor="c5f1ff" mydata:template="Contrast"
+                mydata:presentation="2.5" mydata:layouttype="undefined" mydata:specialfontid="undefined"
+                mydata:id1="037" mydata:id2="132" mydata:companyname="beYOUty" mydata:companytagline="Lounge"
+                version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="130.08786279349803 114.99999999999999 289.824274413004 240">
                 <g fill="#e56db1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
@@ -131,42 +68,13 @@
                             data-paper-data="{&quot;fillRule&quot;:&quot;nonzero&quot;,&quot;fillRuleOriginal&quot;:&quot;nonzero&quot;,&quot;isIcon&quot;:true,&quot;iconStyle&quot;:&quot;standalone&quot;,&quot;selectedEffects&quot;:{&quot;container&quot;:&quot;&quot;,&quot;transformation&quot;:&quot;rotate0;translate50&quot;,&quot;pattern&quot;:&quot;&quot;},&quot;bounds&quot;:{&quot;x&quot;:130.08786279349803,&quot;y&quot;:155.23613264152283,&quot;width&quot;:289.8242744130039,&quot;height&quot;:72.01260852517737},&quot;iconType&quot;:&quot;initial&quot;,&quot;initialText&quot;:&quot;bl&quot;,&quot;rawInitialId&quot;:625,&quot;suitableAsStandaloneIcon&quot;:true}">
                             <path
                                 d="M275,181.12033c3.61388,-4.42991 6.99459,-10.14215 7.81062,-16.08755c1.63207,-11.89079 -13.28972,-12.24053 -22.38268,-4.89622c-7.57747,6.06198 -14.10575,15.50467 -18.06935,24.01475c-3.49729,7.22774 -6.29513,13.52287 -8.16035,20.63404c-9.67584,6.76144 -21.10034,7.46089 -32.758,6.87801c-18.76882,-0.93261 -44.53221,-7.81062 -62.485,0.11658c-4.08018,1.74864 -5.01279,2.91441 -8.3935,5.4791c-1.28234,1.74864 0.23315,3.61388 2.21495,2.68127c9.909,-7.81062 20.40089,-8.74323 32.758,-8.04378c20.98377,1.28234 47.91294,8.62666 67.49778,-2.33153l-0.46631,2.68127c-0.69946,4.89622 9.20954,6.99459 11.89079,2.91441h0.23315c0,-0.11658 0.11658,-0.23315 0.11658,-0.34973c2.21495,-2.09837 4.54649,-4.08018 7.11117,-5.59567c2.09837,-1.28234 4.19676,-2.56468 6.29513,-3.38071c1.39892,-0.58288 2.91441,-1.04919 4.31332,-1.16576c4.08018,-0.23315 5.82883,3.14756 5.4791,6.76144c0,0.34973 -0.11658,0.81603 -0.23315,1.16576l-5.9454,1.74864c-3.14756,0.93261 -9.09296,2.21495 -10.49188,5.9454c-1.39892,3.84703 2.56468,6.41171 6.06198,6.06198c4.66306,-0.46631 10.84162,-5.12937 13.17314,-8.85981c0.58288,-0.93261 1.04919,-1.86522 1.28234,-2.79783c6.29513,-1.86522 12.12396,-3.14756 18.3025,-6.29513c2.09837,-1.39892 0.46631,-4.08018 -1.74864,-3.03098c-5.4791,2.91441 -10.60845,4.54649 -15.97098,5.9454c0.23315,-5.12937 -3.26415,-9.909 -9.909,-10.14215c-4.66306,0 -10.25874,3.14756 -14.92179,6.64486l2.33153,-6.06198c9.79242,-5.4791 18.88538,-12.93999 25.06394,-20.63404zM265.32416,171.67764c3.96359,-5.24594 11.4245,-13.98918 13.8726,-9.55927c1.74864,3.14756 -3.61388,12.59026 -6.76144,16.67043c-4.66306,6.06198 -12.35711,12.70684 -20.40089,17.71962c3.61388,-8.74323 7.57747,-17.25333 13.28972,-24.8308zM255.18201,222.62156c-0.46631,-0.34973 -0.34973,-0.11658 -0.69946,-0.69946v-0.23315c0,-0.11658 0.11658,-0.11658 0.11658,-0.23315c1.86522,-2.56468 7.69405,-3.38071 10.84162,-4.54649c-2.79783,3.73044 -7.34432,7.11117 -10.25874,5.71225zM332.58878,210.03129c5.12937,-0.69946 10.60845,-0.69946 15.97098,-0.46631c18.76882,0.93261 44.53221,7.81062 62.485,-0.11658c4.08018,-1.74864 5.01279,-2.91441 8.3935,-5.4791c1.28234,-1.74864 -0.23315,-3.61388 -2.21495,-2.68127c-9.909,7.81062 -20.40089,8.74323 -32.758,8.04378c-16.08755,-0.93261 -35.55583,-5.24594 -52.69257,-2.68127c-7.11117,1.04919 -13.05657,5.36252 -15.8544,9.09296c-5.24594,7.11117 -14.22233,10.49188 -15.38809,0.11658c-0.34973,-2.68127 0.23315,-5.9454 1.04919,-8.74323l0.46631,-1.74864c12.59026,-4.19676 25.53024,-17.48647 32.52483,-28.32809c2.68127,-4.08018 4.19676,-9.67584 2.91441,-13.05657c-1.74864,-4.66306 -8.3935,-5.82883 -13.75603,-4.54649c-15.62125,3.61388 -30.65961,27.2789 -35.55583,43.48303c-2.09837,6.99459 -1.39892,12.82341 1.16576,16.90359c6.76144,10.95818 20.86719,9.32612 29.727,-1.86522c2.91441,-3.73044 8.74323,-7.22774 13.52287,-7.9272zM318.24987,176.69042c2.68127,-3.14756 11.4245,-13.52287 15.73782,-9.909c1.51549,1.28234 -2.68127,8.97639 -4.42991,11.4245c-5.71225,8.16035 -16.08755,18.41909 -25.76341,22.84899c3.84703,-8.97639 8.51008,-17.25333 14.45548,-24.36448z"
-                                data-paper-data="{&quot;isPathIcon&quot;:true}" fill="#e56db1" style="fill: #fff;">
-                            </path>
+                                data-paper-data="{&quot;isPathIcon&quot;:true}" fill="#e56db1"
+                                style="fill: rgb(255, 255, 255);"></path>
                         </g>
-                        <g class="svg-border" stroke="#fff" stroke-width="0.3" fill-rule="nonzero">
-                            <path class="svg-border__inner"
-                                d="M190.14721,150.14721c11.072,-11.07204 23.78646,-19.64426 38.1434,-25.71667c14.86413,-6.28703 30.43392,-9.43054 46.70939,-9.43054c16.27501,0 31.8448,3.14351 46.70939,9.43054c14.35649,6.07209 27.07095,14.64431 38.1434,25.71667c11.07154,11.07154 19.64388,23.78601 25.71701,38.1434c2.24399,5.30538 4.08749,10.70073 5.53052,16.18603l-1.7503,-0.10599c-1.40154,-5.22713 -3.17266,-10.3712 -5.31336,-15.43222c-5.98784,-14.15733 -14.44132,-26.69555 -25.36043,-37.61466c-10.91911,-10.9188 -23.45733,-19.37232 -37.61466,-25.36057c-14.65681,-6.19938 -30.01066,-9.29907 -46.06156,-9.29907c-16.05045,0 -31.4043,3.09969 -46.06156,9.29907c-14.15733,5.98807 -26.69555,14.44159 -37.61466,25.36057c-10.91911,10.91911 -19.37259,23.45733 -25.36043,37.61466c-2.00982,4.75159 -3.69387,9.57639 -5.05214,14.4744l-1.73097,0.01731c1.39889,-5.12533 3.14889,-10.17184 5.24998,-15.13953c6.07268,-14.35694 14.64501,-27.07141 25.71701,-38.1434zM359.85279,319.85279c-11.07154,11.07154 -23.78601,19.64388 -38.1434,25.71701c-14.86322,6.2868 -30.43302,9.4302 -46.70939,9.4302c-16.27546,0 -31.84526,-3.1434 -46.70939,-9.4302c-14.35694,-6.07222 -27.07141,-14.64456 -38.1434,-25.71701c-0.21354,-0.21354 -0.42615,-0.42769 -0.63782,-0.64245l1.4954,0.13197l0.90674,-0.00966l0.06624,-0.0073c10.7645,10.60511 23.08473,18.84221 36.96068,24.7113c14.65681,6.1997 30.01066,9.29955 46.06156,9.29955c16.04999,0 31.40385,-3.09985 46.06156,-9.29955c14.02276,-5.93067 26.45739,-14.28092 37.30389,-25.05076l1.40815,-0.06038l1.03855,-0.04259c-0.31767,0.32468 -0.63746,0.64796 -0.95936,0.96986z"
-                                data-paper-data="{&quot;isLogoContainer&quot;:true}" fill="#fff">
-                            </path>
-                        </g>
+                        <path
+                            d="M190.14721,150.14721c11.072,-11.07204 23.78646,-19.64426 38.1434,-25.71667c14.86413,-6.28703 30.43392,-9.43054 46.70939,-9.43054c16.27501,0 31.8448,3.14351 46.70939,9.43054c14.35649,6.07209 27.07095,14.64431 38.1434,25.71667c11.07154,11.07154 19.64388,23.78601 25.71701,38.1434c2.24399,5.30538 4.08749,10.70073 5.53052,16.18603l-1.7503,-0.10599c-1.40154,-5.22713 -3.17266,-10.3712 -5.31336,-15.43222c-5.98784,-14.15733 -14.44132,-26.69555 -25.36043,-37.61466c-10.91911,-10.9188 -23.45733,-19.37232 -37.61466,-25.36057c-14.65681,-6.19938 -30.01066,-9.29907 -46.06156,-9.29907c-16.05045,0 -31.4043,3.09969 -46.06156,9.29907c-14.15733,5.98807 -26.69555,14.44159 -37.61466,25.36057c-10.91911,10.91911 -19.37259,23.45733 -25.36043,37.61466c-2.00982,4.75159 -3.69387,9.57639 -5.05214,14.4744l-1.73097,0.01731c1.39889,-5.12533 3.14889,-10.17184 5.24998,-15.13953c6.07268,-14.35694 14.64501,-27.07141 25.71701,-38.1434zM359.85279,319.85279c-11.07154,11.07154 -23.78601,19.64388 -38.1434,25.71701c-14.86322,6.2868 -30.43302,9.4302 -46.70939,9.4302c-16.27546,0 -31.84526,-3.1434 -46.70939,-9.4302c-14.35694,-6.07222 -27.07141,-14.64456 -38.1434,-25.71701c-0.21354,-0.21354 -0.42615,-0.42769 -0.63782,-0.64245l1.4954,0.13197l0.90674,-0.00966l0.06624,-0.0073c10.7645,10.60511 23.08473,18.84221 36.96068,24.7113c14.65681,6.1997 30.01066,9.29955 46.06156,9.29955c16.04999,0 31.40385,-3.09985 46.06156,-9.29955c14.02276,-5.93067 26.45739,-14.28092 37.30389,-25.05076l1.40815,-0.06038l1.03855,-0.04259c-0.31767,0.32468 -0.63746,0.64796 -0.95936,0.96986z"
+                            data-paper-data="{&quot;isLogoContainer&quot;:true}" fill="#e56db1"
+                            style="fill: rgb(255, 255, 255);"></path>
                     </g>
                 </g>
             </svg>
-            <span class="home__left-top-tri"></span>
-            <span class="home__right-bottom-tri"></span>
-        </section>
-
-        <section class="services" id="services">
-            <h2 class="services__title">Szolgáltatások</h2>
-            <div class="services__content" id="serviceContent"></div>
-        </section>
-
-        <section id="contact">
-            <h2 class="contact__title">CONTACT</h2>
-        </section>
-
-        <!-- <section id="location">
-    
-            </section> -->
-    </main>
-
-    <footer>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
