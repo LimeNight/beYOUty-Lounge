@@ -57,7 +57,6 @@ class ContentCreator {
   
   createServicesList(serviceType){
     let ul = document.createElement('ul')
-    console.log(serviceType)
     serviceType.services.map((service) => ul.appendChild(this.#createServiceItem(service)))
     return ul
   }
@@ -66,6 +65,7 @@ class ContentCreator {
 class SelectMenuCreator extends ContentCreator {
   #createTitle(text) {
     const h3 = document.createElement('h3')
+    h3.classList = 'services__content-header__title'
     h3.innerText = text
     return h3
   }
@@ -73,23 +73,26 @@ class SelectMenuCreator extends ContentCreator {
   createSelectMenu(serviceInfo) {
     let div = document.createElement('div')
     let title = this.#createTitle(serviceInfo.industryName)
+
+    div.classList = 'services__container-header__container'
     div.appendChild(title)
 
     if (serviceInfo.serviceTypes.length > 1){
       const selectElement = document.createElement("select")
       selectElement.setAttribute("name", "services")
+      selectElement.classList = 'services__container-header__select'
+
       serviceInfo.serviceTypes.forEach((serviceTypes) => {
         const optionElement = document.createElement("option")
         optionElement.setAttribute("value", serviceTypes.id)
+        optionElement.classList = 'services__container-header__option'
         optionElement.textContent = serviceTypes.title
         selectElement.appendChild(optionElement)
       })
 
       selectElement.onchange = (el) => {
-        // let serviceID = +el.target.value
-        // let service = ServiceManager.getServiceInfoById(serviceID)
-        // let contentCreator = new ContentCreator('serviceContainer')
-        // contentCreator.createServicesList(service)
+        let serviceID = +el.target.value
+        contentManager.updateSelectedService(serviceID)
       }
 
       div.appendChild(selectElement)
@@ -100,48 +103,53 @@ class SelectMenuCreator extends ContentCreator {
 
 class ContentManager extends SelectMenuCreator {
   #initialServiceID = 1
-  selectMenuContainer = document.createElement('div')
-  contentContainer = document.createElement('div')
+  headerContainer = document.createElement('div')
+  bodyContainer = document.createElement('div')
 
   constructor(elementId){
     super()
     this.container = document.getElementById(elementId)
     this.initialServiceInfo = ServiceManager.getServiceInfoById(this.#initialServiceID)
-    this.selectMenuContainer.classList = 'services__content-select'
-    this.contentContainer.classList = 'services__content-container'
+    this.headerContainer.classList = 'services__container-header'
+    this.bodyContainer.classList = 'services__container-body'
   }
 
   init() {
     let selectMenu = this.createSelectMenu(this.initialServiceInfo)
     let content = this.createServicesList(this.initialServiceInfo.serviceTypes[0])
 
-    this.selectMenuContainer.appendChild(selectMenu)
-    this.contentContainer.appendChild(content)
+    this.headerContainer.appendChild(selectMenu)
+    this.bodyContainer.appendChild(content)
 
-    this.container.appendChild(this.selectMenuContainer)
-    this.container.appendChild(this.contentContainer)
+    this.container.appendChild(this.headerContainer)
+    this.container.appendChild(this.bodyContainer)
   }
 
   update(serviceInfoID) {
-    this.#clear()
+    this.headerContainer.innerHTML = ''
+    this.bodyContainer.innerHTML = ''
     let service = ServiceManager.getServiceInfoById(serviceInfoID)
-    let selectMenu = this.createSelectMenu(service)
-    let content = this.createServicesList(service.serviceTypes[0])
 
-    this.selectMenuContainer.appendChild(selectMenu)
-    this.contentContainer.appendChild(content)
-
-    this.container.appendChild(this.selectMenuContainer)
-    this.container.appendChild(this.contentContainer)
+    if (service !== null){
+      let selectMenu = this.createSelectMenu(service)
+      let content = this.createServicesList(service.serviceTypes[0])
+  
+      this.headerContainer.appendChild(selectMenu)
+      this.bodyContainer.appendChild(content)
+  
+      this.container.appendChild(this.headerContainer)
+      this.container.appendChild(this.bodyContainer)
+    }
   }
 
   updateSelectedService(serviceTypesID) {
+    this.bodyContainer.innerHTML = ''
+    let service = ServiceManager.getServiceTypesById(serviceTypesID)
 
-  }
-
-  #clear() {
-    this.selectMenuContainer.innerHTML = ''
-    this.contentContainer.innerHTML = ''
+    if (service !== null){
+      let content = this.createServicesList(service)
+      this.bodyContainer.appendChild(content)
+    }
   }
 }
 

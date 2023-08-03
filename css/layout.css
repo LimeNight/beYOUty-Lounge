@@ -32,7 +32,7 @@ body main {
   scroll-behavior: smooth;
 }
 body main section {
-  min-height: calc(50vh - 56px);
+  min-height: 100vh;
   padding: 26px 0;
 }
 body main section:first-child {
