@@ -1,115 +1,136 @@
-/*
-    Global Variables
-      -contentServiceManager
+/**
+ * GLOBAL VARIABLES
+ * -contentManager
 */
-var contentManager;
-/*
-    Page loaded
-      -initialize
+let contentManager;
+/**
+ * PAGE LOADED
+ * -initialize
 */
+
 const init = () => {
   // Add services to manager
-  ServiceManager.add(_data)
+  ServiceController.add(_data)
+  Session.set('test', '3')
   // Init contatent manager
   contentManager = new ContentManager('serviceContent')
   contentManager.init()
 }
-/*
-**************************
-      GET SERVICE
-**************************
+
+class Session {
+  static set(key = '', data = ''){
+    window.sessionStorage.setItem(key, data)
+  }
+
+  static get(key = ''){
+    return +window.sessionStorage.getItem(key)
+  }
+}
+/**
+ * GET SERVICE
 */
-const getService = (id) => {
+const getService = (id = 1) => {
   contentManager.update(id)
 }
-
+/**
+ * CREATE CONTENT
+ */
 class ContentCreator {
-  #createExtraItem(extra){
+  #createExtraListItem = (extra = new Extras()) =>{
+    let {title, price}  = extra
     let li = document.createElement('li')
-    li.textContent = `${extra?.title} - ${extra?.price} Ft.-` 
+    li.textContent = `${title} - ${price} Ft.-` 
     return li
   }
-  
-  #createServiceItem(services){
+  #createListItem = (service = new Services()) =>{
+    const {title, price, discription, extras} = service
     let extrasHTML = document.createElement('ul')
     let li = document.createElement('li')
     let h4 = document.createElement('h4')
     let p1 = document.createElement('p')
     let p2 = document.createElement('p')
 
-    if (services.extras.length > 0) {
-      services.extras.map((extra) => extrasHTML.appendChild(this.#createExtraItem(extra)))
+    if (extras.length > 0) {
+      extras.map((extra) => extrasHTML.appendChild(this.#createExtraListItem(extra)))
     }
   
-    h4.textContent = services.title
-    p1.textContent = services.price != null ? `${services.price} Ft.-` : ''
-    p2.textContent = services.discription
+    h4.textContent = title
+    p1.textContent = price != null ? `${price} Ft.-` : ''
+    p2.textContent = discription
     li.appendChild(h4)
     li.appendChild(p1)
     li.appendChild(p2)
     li.appendChild(extrasHTML)
     return li
   }
-  
-  createServicesList(serviceType){
+  createList = (serviceArr = [new Services()]) => {
     let ul = document.createElement('ul')
-    console.log(serviceType)
-    serviceType.services.map((service) => ul.appendChild(this.#createServiceItem(service)))
+    serviceArr.map((service) => ul.appendChild(this.#createListItem(service)))
     return ul
   }
 }
-
-class SelectMenuCreator extends ContentCreator {
-  #createTitle(text) {
+/**
+ * CREATE SELECT MENU
+ */
+class SelectMenuCreator {
+  #createTitle = (text = '') => {
     const h3 = document.createElement('h3')
     h3.innerText = text
     return h3
   }
 
-  createSelectMenu(serviceInfo) {
-    let title = this.#createTitle(serviceInfo.industryName)
+  createSelectMenu = (serviceInfo = new ServiceInfo()) => {
+    let {industryName, name, phone, serviceTypes } = serviceInfo
+    let title = this.#createTitle(industryName)
 
-    if (serviceInfo.serviceTypes.length > 1){
+    if (serviceTypes.length > 1){
       const selectElement = document.createElement("select")
       selectElement.setAttribute("name", "services")
-      serviceInfo.serviceTypes.forEach((serviceTypes) => {
+
+      serviceTypes.forEach((serviceTypes) => {
         const optionElement = document.createElement("option")
-        optionElement.setAttribute("value", serviceTypes.id)
-        optionElement.textContent = serviceTypes.title
+        optionElement.setAttribute("value", serviceTypes?.id)
+        optionElement.textContent = serviceTypes?.title
         selectElement.appendChild(optionElement)
       })
 
       selectElement.onchange = (el) => {
         let serviceID = +el.target.value
-        contentManager.updateSelectedService(serviceID)
+        contentManager.updateContent(serviceID)
       }
-
       return title, selectElement
     }
     return title
   }
 }
-
+/**
+ * INSTANTIATION CLASSES
+ * -ContentCreator
+ * -SelectMenuCreator
+ */
 class Creator {
-
+  contentCreator = new ContentCreator()
+  selectMenuCreator = new SelectMenuCreator()
 }
 
-class ContentManager extends SelectMenuCreator {
+class ContentManager extends Creator {
+  i = Session.get('test')
   #initialServiceID = 1
   headerContainer  = document.createElement('div')
   bodyContainer = document.createElement('div')
 
   constructor(elementId){
     super()
+    this.#initialServiceID = ServiceController.isExist(this.i) ? this.i : this.#initialServiceID
     this.container = document.getElementById(elementId)
-    this.initialServiceInfo = ServiceManager.getServiceInfoById(this.#initialServiceID)
-    this.headerContainer .classList = 'services__content-select'
+    this.initialServiceInfo = ServiceController.getServiceInfoById(this.#initialServiceID)
+    this.headerContainer.classList = 'services__content-select'
     this.bodyContainer.classList = 'services__content-container'
   }
 
-  init() {
-    let selectMenu = this.createSelectMenu(this.initialServiceInfo)
-    let content = this.createServicesList(this.initialServiceInfo.serviceTypes[0])
+  init = () => {
+    let selectMenu = this.selectMenuCreator.createSelectMenu(this.initialServiceInfo)
+    let content = this.contentCreator.createList(this.initialServiceInfo.serviceTypes[0].services)
 
     this.headerContainer .appendChild(selectMenu)
     this.bodyContainer.appendChild(content)
@@ -117,39 +138,34 @@ class ContentManager extends SelectMenuCreator {
     this.container.appendChild(this.headerContainer )
     this.container.appendChild(this.bodyContainer)
   }
-
-  update(serviceInfoID) {
+  update = (serviceInfoID = 0) => {
     this.#clear()
-    let service = ServiceManager.getServiceInfoById(serviceInfoID)
-    let selectMenu = this.createSelectMenu(service)
-    let content = this.createServicesList(service.serviceTypes[0])
+    let service = ServiceController.getServiceInfoById(serviceInfoID)
+    let selectMenu = this.selectMenuCreator.createSelectMenu(service)
+    let content = this.contentCreator.createList(service.serviceTypes[0].services)
 
-    this.headerContainer .appendChild(selectMenu)
+    this.headerContainer.appendChild(selectMenu)
     this.bodyContainer.appendChild(content)
 
     this.container.appendChild(this.headerContainer )
     this.container.appendChild(this.bodyContainer)
   }
-
-  updateSelectedService(serviceTypesID) {
+  updateContent = (serviceTypesID = 0) => {
     this.bodyContainer.innerHTML = ""
-    let service = ServiceManager.getServiceTypesById(serviceTypesID)
+    let service = ServiceController.getServiceTypesById(serviceTypesID)
 
     if (service !== null) {
-      let content = this.createServicesList(service)
+      let content = this.contentCreator.createList(service.services)
       this.bodyContainer.appendChild(content)
     }
   }
-
-  #clear() {
+  #clear = () => {
     this.headerContainer .innerHTML = ''
     this.bodyContainer.innerHTML = ''
   }
 }
-/*
-************************************
-          DATA STRUCT
-************************************  
+/**
+ * DATA STRUCT
 */
 class Extras {
   constructor(
@@ -164,11 +180,11 @@ class Extras {
 }
 class Services extends Extras {
   constructor(
-    id,
-    title,
-    price,
-    discription,
-    extras
+    id = 0,
+    title = '',
+    price = 0,
+    discription = '',
+    extras = []
   ) {
     super(id, title, price)
     this.discription = discription
@@ -190,11 +206,11 @@ class ServiceTypes {
 }
 class ServiceInfo {
   constructor(
-    id,
-    industryName,
-    name,
-    phone,
-    serviceTypes
+    id = 0,
+    industryName = '',
+    name = '',
+    phone = '',
+    serviceTypes = []
   ){
     this.id = id
     this.industryName = industryName
@@ -203,42 +219,39 @@ class ServiceInfo {
     this.serviceTypes = Array.isArray(serviceTypes) ?  serviceTypes?.map(service => new ServiceTypes(service.id, service.title, service.discription, service.services)) : []
   }
 }
-/*
-**************************************
-        SERVICE MANAGER STATIC CLASS
-        - add services
-        - getServiceInfoById
-        - getAll
-**************************************
+/**
+ * SERVICE MANAGER STATIC CLASS
+ * - add services
+ * - getServiceInfoById
+ * - getAll
 */
-class ServiceManager {
+class ServiceController {
   static #collection = []
   static #actualService = {}
 
   //Add all service and store
-  static add(services){
+  static add = (services = [new ServiceInfo()]) => {
     this.#collection = services.length > 0 ?  services?.map(service => new ServiceInfo(service.id, service.industryName, service.name, service.phone, service.serviceTypes)) : []
   }
-
   //Get ServiceInfo By ID
-  static getServiceInfoById(id) {
+  static getServiceInfoById = (id = 0) => {
     return this.#actualService = this.#collection?.find(service => service.id === id) ?? null
   }
-
   //Get ServiceType By ID
-  static getServiceTypesById(id) {
+  static getServiceTypesById = (id = 0) => {
     return this.#actualService.serviceTypes.find(service => service.id === id) ?? null
   }
-
   //Get the whole list of services
-  static getAll() {
+  static getAll = () => {
     return this.#collection ?? null
   }
-
+  static isExist = (id = 0) => {
+    return this.#collection.find(service => service.id === id) ? true : false
+  }
 }
 
-/*
-  DATA
+/**
+ * DATA
 */
 let beautician = {
   /* SERVICEINFO*/
@@ -560,7 +573,7 @@ let hairdresser = {
     },
   ],
 }
-/*
-    DATA ARRAY (services)
+/**
+ * DATA ARRAY (services)
 */
 let _data = [beautician, hairdresser]
