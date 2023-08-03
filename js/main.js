@@ -3,21 +3,17 @@
       -contentServiceManager
 */
 var contentManager;
-var initialServiceID = 1
 /*
     Page loaded
       -initialize
 */
 const init = () => {
-  serviceSelectMenuContainer = document.getElementById("serviceSelect")
-  serviceContentContainer = document.getElementById("serviceContainer")
   // Add services to manager
-  ServiceManager.add(_services)
+  ServiceManager.add(_data)
   // Init contatent manager
   contentManager = new ContentManager('serviceContent')
   contentManager.init()
 }
-
 /*
 **************************
       GET SERVICE
@@ -71,9 +67,7 @@ class SelectMenuCreator extends ContentCreator {
   }
 
   createSelectMenu(serviceInfo) {
-    let div = document.createElement('div')
     let title = this.#createTitle(serviceInfo.industryName)
-    div.appendChild(title)
 
     if (serviceInfo.serviceTypes.length > 1){
       const selectElement = document.createElement("select")
@@ -86,40 +80,42 @@ class SelectMenuCreator extends ContentCreator {
       })
 
       selectElement.onchange = (el) => {
-        // let serviceID = +el.target.value
-        // let service = ServiceManager.getServiceInfoById(serviceID)
-        // let contentCreator = new ContentCreator('serviceContainer')
-        // contentCreator.createServicesList(service)
+        let serviceID = +el.target.value
+        contentManager.updateSelectedService(serviceID)
       }
 
-      div.appendChild(selectElement)
+      return title, selectElement
     }
-    return div
+    return title
   }
+}
+
+class Creator {
+
 }
 
 class ContentManager extends SelectMenuCreator {
   #initialServiceID = 1
-  selectMenuContainer = document.createElement('div')
-  contentContainer = document.createElement('div')
+  headerContainer  = document.createElement('div')
+  bodyContainer = document.createElement('div')
 
   constructor(elementId){
     super()
     this.container = document.getElementById(elementId)
     this.initialServiceInfo = ServiceManager.getServiceInfoById(this.#initialServiceID)
-    this.selectMenuContainer.classList = 'services__content-select'
-    this.contentContainer.classList = 'services__content-container'
+    this.headerContainer .classList = 'services__content-select'
+    this.bodyContainer.classList = 'services__content-container'
   }
 
   init() {
     let selectMenu = this.createSelectMenu(this.initialServiceInfo)
     let content = this.createServicesList(this.initialServiceInfo.serviceTypes[0])
 
-    this.selectMenuContainer.appendChild(selectMenu)
-    this.contentContainer.appendChild(content)
+    this.headerContainer .appendChild(selectMenu)
+    this.bodyContainer.appendChild(content)
 
-    this.container.appendChild(this.selectMenuContainer)
-    this.container.appendChild(this.contentContainer)
+    this.container.appendChild(this.headerContainer )
+    this.container.appendChild(this.bodyContainer)
   }
 
   update(serviceInfoID) {
@@ -128,23 +124,28 @@ class ContentManager extends SelectMenuCreator {
     let selectMenu = this.createSelectMenu(service)
     let content = this.createServicesList(service.serviceTypes[0])
 
-    this.selectMenuContainer.appendChild(selectMenu)
-    this.contentContainer.appendChild(content)
+    this.headerContainer .appendChild(selectMenu)
+    this.bodyContainer.appendChild(content)
 
-    this.container.appendChild(this.selectMenuContainer)
-    this.container.appendChild(this.contentContainer)
+    this.container.appendChild(this.headerContainer )
+    this.container.appendChild(this.bodyContainer)
   }
 
   updateSelectedService(serviceTypesID) {
+    this.bodyContainer.innerHTML = ""
+    let service = ServiceManager.getServiceTypesById(serviceTypesID)
 
+    if (service !== null) {
+      let content = this.createServicesList(service)
+      this.bodyContainer.appendChild(content)
+    }
   }
 
   #clear() {
-    this.selectMenuContainer.innerHTML = ''
-    this.contentContainer.innerHTML = ''
+    this.headerContainer .innerHTML = ''
+    this.bodyContainer.innerHTML = ''
   }
 }
-
 /*
 ************************************
           DATA STRUCT
@@ -236,6 +237,9 @@ class ServiceManager {
 
 }
 
+/*
+  DATA
+*/
 let beautician = {
   /* SERVICEINFO*/
   id: 1,
@@ -333,8 +337,7 @@ let beautician = {
       services: {},
     },
   ],
-};
-
+}
 let hairdresser = {
   id: 3,
   industryName: "Fodrászat",
@@ -556,9 +559,8 @@ let hairdresser = {
       ],
     },
   ],
-};
-
+}
 /*
-    Data array (services)
+    DATA ARRAY (services)
 */
-let _services = [beautician, hairdresser];
+let _data = [beautician, hairdresser]
