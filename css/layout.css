@@ -36,8 +36,8 @@ body main section {
   padding: 26px 0;
 }
 body main section:first-child {
-  height: 100vh;
-  min-height: 100vh;
+  height: calc(100vh - 56px);
+  min-height: calc(100vh - 56px);
 }
 body footer {
   position: relative;
