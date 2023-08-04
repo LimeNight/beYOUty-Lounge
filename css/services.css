@@ -73,7 +73,6 @@
   width: clamp(300px, 33%, 33%);
   height: 100px;
   background-color: rgba(255, 255, 255, 0.5);
-  animation: float-left-to-right-before 0.2s ease-in forwards;
 }
 .services__content-header__select {
   width: clamp(300px, 50%, 50%);
@@ -91,6 +90,7 @@
   border-radius: none;
 }
 .services__content-body__list {
+  padding: 0;
   font-size: 1em;
 }
 .services__content-body__list-item {
