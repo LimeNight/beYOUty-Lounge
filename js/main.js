@@ -7,23 +7,25 @@ let contentManager;
  * PAGE LOADED
  * -initialize
 */
-
 const init = () => {
-  // Add services to manager
+  // Add datas to controller
   ServiceController.add(_data)
-  Session.set('test', '3')
   // Init contatent manager
   contentManager = new ContentManager('serviceContent')
   contentManager.init()
 }
 
-class Session {
+class LStorage {
   static set(key = '', data = ''){
-    window.sessionStorage.setItem(key, data)
+    window.localStorage.setItem(key, data)
   }
 
   static get(key = ''){
-    return +window.sessionStorage.getItem(key)
+    return +window.localStorage.getItem(key)
+  }
+
+  static clear(){
+    window.localStorage.clear()
   }
 }
 /**
@@ -36,35 +38,70 @@ const getService = (id = 1) => {
  * CREATE CONTENT
  */
 class ContentCreator {
+  #extraContent = (extra = new Extras()) => {
+    let {title, price} = extra
+
+    if (title && price) {
+      let titleP = document.createElement('p')
+      let priceP = document.createElement('p')
+      titleP.innerHTML = `${title}`
+      priceP.innerHTML = `${price} Ft.-`
+      return {titleP, priceP}
+    }
+    else if(title) {
+      let titleP = document.createElement('p')
+      titleP.innerHTML = `${title}`
+      return {titleP}
+    }
+    else {
+      let priceP = document.createElement('p')
+      priceP.innerHTML = `${price} Ft.-`
+      return {priceP} 
+    }
+  }
+
   #createExtraListItem = (extra = new Extras()) =>{
-    let {title, price}  = extra
-    let li = document.createElement('li')
-    li.textContent = `${title} - ${price} Ft.-` 
-    return li
+    let {titleP, priceP} = this.#extraContent(extra)
+    if (titleP || priceP) {
+      let li = document.createElement('li')
+      li.classList = 'services__content-body__list-item__extras-item'
+      if (titleP) li.appendChild(titleP)
+      if (priceP) li.appendChild(priceP)
+      return li
+    }
+
+    return null
   }
   #createListItem = (service = new Services()) =>{
     const {title, price, discription, extras} = service
+
     let extrasHTML = document.createElement('ul')
     let li = document.createElement('li')
     let h4 = document.createElement('h4')
     let p1 = document.createElement('p')
     let p2 = document.createElement('p')
 
-    if (extras.length > 0) {
-      extras.map((extra) => extrasHTML.appendChild(this.#createExtraListItem(extra)))
-    }
+    extrasHTML.classList = 'services__content-body__list-item__extras'
+    li.classList = 'services__content-body__list-item'
+    h4.classList = 'services__content-body__list-item-title'
+    p1.classList = 'services__content-body__list-item-price'
+    p2.classList = 'services__content-body__list-item-discription'
   
     h4.textContent = title
     p1.textContent = price != null ? `${price} Ft.-` : ''
     p2.textContent = discription
-    li.appendChild(h4)
-    li.appendChild(p1)
-    li.appendChild(p2)
-    li.appendChild(extrasHTML)
+    if (title) li.appendChild(h4)
+    if (price) li.appendChild(p1)
+    if (discription) li.appendChild(p2)
+    if (extras.length > 0) {
+      extras.map((extra) => extrasHTML.appendChild(this.#createExtraListItem(extra)))
+      li.appendChild(extrasHTML)
+    }
     return li
   }
   createList = (serviceArr = [new Services()]) => {
     let ul = document.createElement('ul')
+    ul.classList = 'services__content-body__list'
     serviceArr.map((service) => ul.appendChild(this.#createListItem(service)))
     return ul
   }
@@ -75,32 +112,37 @@ class ContentCreator {
 class SelectMenuCreator {
   #createTitle = (text = '') => {
     const h3 = document.createElement('h3')
+    h3.classList = 'services__content-header-title'
     h3.innerText = text
     return h3
   }
-
   createSelectMenu = (serviceInfo = new ServiceInfo()) => {
-    let {industryName, name, phone, serviceTypes } = serviceInfo
-    let title = this.#createTitle(industryName)
-
-    if (serviceTypes.length > 1){
-      const selectElement = document.createElement("select")
-      selectElement.setAttribute("name", "services")
-
-      serviceTypes.forEach((serviceTypes) => {
-        const optionElement = document.createElement("option")
-        optionElement.setAttribute("value", serviceTypes?.id)
-        optionElement.textContent = serviceTypes?.title
-        selectElement.appendChild(optionElement)
-      })
-
-      selectElement.onchange = (el) => {
-        let serviceID = +el.target.value
-        contentManager.updateContent(serviceID)
+    if (serviceInfo) {
+      let {industryName, name, phone, serviceTypes } = serviceInfo
+      let title = this.#createTitle(industryName)
+  
+      if (serviceTypes.length > 1){
+        const selectElement = document.createElement("select")
+        selectElement.classList = 'services__content-header__select'
+        selectElement.setAttribute("name", "services")
+  
+        serviceTypes.forEach((serviceTypes) => {
+          const optionElement = document.createElement("option")
+          optionElement.classList = 'services__content-header__select-option'
+          optionElement.setAttribute("value", serviceTypes?.id)
+          optionElement.textContent = serviceTypes?.title
+          selectElement.appendChild(optionElement)
+        })
+  
+        selectElement.onchange = (el) => {
+          let serviceID = +el.target.value
+          contentManager.updateContent(serviceID)
+        }
+        return [title, selectElement]
       }
-      return title, selectElement
+      return [title]
     }
-    return title
+    return [null]
   }
 }
 /**
@@ -114,41 +156,52 @@ class Creator {
 }
 
 class ContentManager extends Creator {
-  i = Session.get('test')
+  localStore = LStorage.get('localServ')
   #initialServiceID = 1
   headerContainer  = document.createElement('div')
   bodyContainer = document.createElement('div')
 
   constructor(elementId){
     super()
-    this.#initialServiceID = ServiceController.isExist(this.i) ? this.i : this.#initialServiceID
+    this.#initialServiceID = ServiceController.isExist(this.localStore) ? this.localStore : this.#initialServiceID
     this.container = document.getElementById(elementId)
     this.initialServiceInfo = ServiceController.getServiceInfoById(this.#initialServiceID)
-    this.headerContainer.classList = 'services__content-select'
-    this.bodyContainer.classList = 'services__content-container'
+    this.headerContainer.classList = 'services__content-header'
+    this.bodyContainer.classList = 'services__content-body'
   }
 
   init = () => {
-    let selectMenu = this.selectMenuCreator.createSelectMenu(this.initialServiceInfo)
+    LStorage.set('localServ', this.#initialServiceID)
+    let [title,selectMenu] = this.selectMenuCreator.createSelectMenu(this.initialServiceInfo)
     let content = this.contentCreator.createList(this.initialServiceInfo.serviceTypes[0].services)
 
-    this.headerContainer .appendChild(selectMenu)
+    this.headerContainer.appendChild(title)
+    if (selectMenu){
+      this.headerContainer.appendChild(selectMenu)
+    }
     this.bodyContainer.appendChild(content)
 
     this.container.appendChild(this.headerContainer )
     this.container.appendChild(this.bodyContainer)
+
   }
   update = (serviceInfoID = 0) => {
+    LStorage.set('localServ', serviceInfoID)
     this.#clear()
     let service = ServiceController.getServiceInfoById(serviceInfoID)
-    let selectMenu = this.selectMenuCreator.createSelectMenu(service)
-    let content = this.contentCreator.createList(service.serviceTypes[0].services)
-
-    this.headerContainer.appendChild(selectMenu)
-    this.bodyContainer.appendChild(content)
-
-    this.container.appendChild(this.headerContainer )
-    this.container.appendChild(this.bodyContainer)
+    if (service) {
+      let [title, selectMenu] = this.selectMenuCreator.createSelectMenu(service)
+      let content = this.contentCreator.createList(service.serviceTypes[0].services)
+  
+      this.headerContainer.appendChild(title)
+      if (selectMenu) {
+        this.headerContainer.appendChild(selectMenu)
+      }
+      this.bodyContainer.appendChild(content)
+  
+      this.container.appendChild(this.headerContainer )
+      this.container.appendChild(this.bodyContainer)
+    }
   }
   updateContent = (serviceTypesID = 0) => {
     this.bodyContainer.innerHTML = ""
@@ -249,7 +302,6 @@ class ServiceController {
     return this.#collection.find(service => service.id === id) ? true : false
   }
 }
-
 /**
  * DATA
 */

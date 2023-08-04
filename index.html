@@ -149,6 +149,14 @@
 
         <section class="services" id="services">
             <h2 class="services__title">Szolgáltatások</h2>
+            <div class="conntainer">
+                <ul class="services__menu row">
+                    <li class="col-sm-6 col-lg-3" type="button" data-id="1" onclick="getService(+this.dataset.id)">Kozmetika</li>
+                    <li class="col-sm-6 col-lg-3" type="button" data-id="2" onclick="getService(+this.dataset.id)">Manikűr</li>
+                    <li class="col-sm-6 col-lg-3" type="button" data-id="3" onclick="getService(+this.dataset.id)">Fodrászat</li>
+                    <li class="col-sm-6 col-lg-3" type="button" data-id="4" onclick="getService(+this.dataset.id)">Masszázs</li>
+                </ul>
+            </div>
             <div class="services__content" id="serviceContent"></div>
         </section>
 
