@@ -32,12 +32,12 @@ body main {
   scroll-behavior: smooth;
 }
 body main section {
-  min-height: 100vh;
+  min-height: 100%;
   padding: 26px 0;
 }
 body main section:first-child {
-  height: calc(100vh - 56px);
-  min-height: calc(100vh - 56px);
+  height: 100%;
+  min-height: 100%;
 }
 body footer {
   position: relative;
