@@ -51,6 +51,7 @@
 }
 .services__content {
   padding: 20px;
+  overflow: hidden;
 }
 .services__content-header {
   position: relative;
@@ -103,13 +104,16 @@
 .services__content-body__list-item-title {
   margin: 0 auto;
 }
+.services__content-body__list-item-price {
+  font-size: 1.2em;
+}
 .services__content-body__list-item-discription {
   position: relative;
   width: 100%;
 }
 .services__content-body__list-item-discription::before {
   position: relative;
-  content: "*";
+  content: "* ";
   color: #0c140e;
 }
 .services__content-body__list-item__extras {
