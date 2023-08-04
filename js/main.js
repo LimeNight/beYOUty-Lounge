@@ -38,12 +38,39 @@ const getService = (id = 1) => {
  * CREATE CONTENT
  */
 class ContentCreator {
+  #extraContent = (extra = new Extras()) => {
+    let {title, price} = extra
+
+    if (title && price) {
+      let titleP = document.createElement('p')
+      let priceP = document.createElement('p')
+      titleP.innerHTML = `${title}`
+      priceP.innerHTML = `${price} Ft.-`
+      return {titleP, priceP}
+    }
+    else if(title) {
+      let titleP = document.createElement('p')
+      titleP.innerHTML = `${title}`
+      return {titleP}
+    }
+    else {
+      let priceP = document.createElement('p')
+      priceP.innerHTML = `${price} Ft.-`
+      return {priceP} 
+    }
+  }
+
   #createExtraListItem = (extra = new Extras()) =>{
-    let {title, price}  = extra
-    let li = document.createElement('li')
-    li.classList = 'services__content-body__list-item__extras-item'
-    li.textContent = `${title} - ${price} Ft.-` 
-    return li
+    let {titleP, priceP} = this.#extraContent(extra)
+    if (titleP || priceP) {
+      let li = document.createElement('li')
+      li.classList = 'services__content-body__list-item__extras-item'
+      if (titleP) li.appendChild(titleP)
+      if (priceP) li.appendChild(priceP)
+      return li
+    }
+
+    return null
   }
   #createListItem = (service = new Services()) =>{
     const {title, price, discription, extras} = service
@@ -63,9 +90,9 @@ class ContentCreator {
     h4.textContent = title
     p1.textContent = price != null ? `${price} Ft.-` : ''
     p2.textContent = discription
-    li.appendChild(h4)
-    li.appendChild(p1)
-    li.appendChild(p2)
+    if (title) li.appendChild(h4)
+    if (price) li.appendChild(p1)
+    if (discription) li.appendChild(p2)
     if (extras.length > 0) {
       extras.map((extra) => extrasHTML.appendChild(this.#createExtraListItem(extra)))
       li.appendChild(extrasHTML)
