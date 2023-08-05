@@ -69,7 +69,7 @@
 }
 .services__content-header-title {
   position: relative;
-  margin: 0;
+  margin: 50px 0;
   left: -500px;
   flex-grow: 1;
   animation: float-left-to-right 0.2s ease-in forwards;
@@ -146,7 +146,7 @@
   margin: 0;
 }
 .services__content-body__list-item__extras-item p:first-child {
-  text-decoration: underline;
+  width: clamp(150px, 50%, 50%);
 }
 .services__content-body__list-item__extras-item p:nth-child(2) {
   min-width: -moz-fit-content;

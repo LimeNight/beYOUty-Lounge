@@ -266,12 +266,14 @@ class ServiceInfo {
     industryName,
     name,
     phone,
+    social,
     serviceTypes
   ){
     this.id = id
     this.industryName = industryName
     this.name = name
     this.phone = phone
+    this.social = social
     this.serviceTypes = serviceTypes.length > 0 ? serviceTypes?.map(service => new ServiceTypes(service.id, service.title, service.discription, service.services)) : []
   }
 }
@@ -287,7 +289,7 @@ class ServiceController {
 
   //Add all service and store
   static add = (services = [new ServiceInfo()]) => {
-    this.#collection = services.length > 0 ?  services?.map(service => new ServiceInfo(service.id, service.industryName, service.name, service.phone, service.serviceTypes)) : []
+    this.#collection = services.length > 0 ?  services?.map(service => new ServiceInfo(service.id, service.industryName, service.name, service.phone, service.social, service.serviceTypes)) : []
   }
   //Get ServiceInfo By ID
   static getServiceInfoById = (id = 0) => {
@@ -316,37 +318,52 @@ class ContactManager {
       row.classList = 'contact__row row'
 
       for (let i = 0; i < size; i++) {
-        const {id, industryName, name, phone} = serviceInfo[i];
-        let card = this.#createCard(id, industryName, name, phone)
+        const {id, industryName, name, phone, social} = serviceInfo[i];
+        let card = this.#createCard(id, industryName, name, phone, social)
         row.appendChild(card)
       }
       container.appendChild(row)
     }
   }
 
-  static #createCard = (id, industryName, name, phone) => {
+  static #createCard = (id, industryName, name, phone, social) => {
+    let imgPath = 'img/' + id + '.jpg'
     let col = document.createElement('div')
     let card = document.createElement('div')
     let cardHeader = document.createElement('div')
     let cardBody = document.createElement('div')
     let cardTextName = document.createElement('p')
     let cardTextPhone = document.createElement('p')
+    let cardTextPLink = document.createElement('a')
+    let cardTextSocial = document.createElement('p')
+    let cardTextSLink = document.createElement('a')
 
-    card.style.aspectRatio = '2/1'
-
-    col.classList = 'contact__row__col col-sm-6 my-2 mx-sm-none'
-    card.classList = 'contact__row__col-card card px-0'
+    col.classList = 'contact__row__col col-sm-6 col-lg-4'
+    card.classList = 'contact__row__col-card card'
     cardHeader.classList = 'contact__row__col-card-header card-header'
     cardBody.classList = 'contact__row__col-card-body card-body'
     cardTextName.classList = 'contact__row__col-card-body__name card-text'
     cardTextPhone.classList = 'contact__row__col-card-body__phone card-text'
+    cardTextSocial.classList = 'contact__row__col-card-body__social card-text'
 
     cardHeader.textContent = industryName
     cardTextName.textContent = name
-    cardTextPhone.textContent = phone
+    cardTextPLink.textContent = `tel: ${phone}`
+    cardTextSLink.textContent = `${social[0].platform}`
 
+    cardTextPLink.href = `tel:${phone}`
+    cardTextSLink.href = social[0].link
+    cardTextSLink.target = '_blank'
+
+    card.style.background = `url('${imgPath}') no-repeat center`
+    card.style.backgroundSize = 'cover'
+    card.style.position = 'relative'
+
+    cardTextPhone.appendChild(cardTextPLink)
+    cardTextSocial.appendChild(cardTextSLink)
     cardBody.appendChild(cardTextName)
     cardBody.appendChild(cardTextPhone)
+    cardBody.appendChild(cardTextSocial)
 
     card.setAttribute('data-id', id)
     card.appendChild(cardHeader)
@@ -374,7 +391,14 @@ let beautician = {
   id: 1,
   industryName: "Kozmetika",
   name: "Pálvölgyi Rita",
-  phone: "+36704567890",
+  phone: "+36 70/456-7890",
+  social: [
+    {
+      id: 1,
+      platform: 'facebook',
+      link: 'https://www.facebook.com/profile.php?id=100057421302366'
+    }
+  ],
   /* SERVICE TYPE*/
   serviceTypes: [
     {
@@ -1007,7 +1031,14 @@ let hairdresser = {
   id: 3,
   industryName: "Fodrászat",
   name: "Birinyi Tünde",
-  phone: "+36305088783",
+  phone: "+36 30/508-8783",
+  social: [
+    {
+      id: 1,
+      platform: 'facebook',
+      link: 'https://www.facebook.com/profile.php?id=100095109576951'
+    }
+  ],
   serviceTypes: [
     {
       id: 1,
@@ -1229,7 +1260,14 @@ let nail = {
   id: 2,
   industryName: "Műköröm",
   name: "Varga Kata",
-  phone: "+36307985774",
+  phone: "+36 30/798-5774",
+  social: [
+    {
+      id: 1,
+      platform: 'facebook',
+      link: 'https://www.facebook.com/nails.katart'
+    }
+  ],
   serviceTypes: [
     {
       id: 1,

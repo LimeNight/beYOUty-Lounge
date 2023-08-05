@@ -1,1 +1,54 @@
-/*# sourceMappingURL=contact.css.map */
+@import 'https://fonts.googleapis.com/css2?family=Courgette&family=Philosopher&display=swap';
+/*
+    Global color variables
+*/
+/*
+    Global font variables
+*/
+/*
+    Global size variables
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Philosopher", sans-serif;
+}
+
+.contact__title {
+  text-align: center;
+  margin: 30px 0;
+}
+.contact__row__col {
+  height: 300px;
+  padding: 20px 0;
+}
+.contact__row__col-card {
+  border: none;
+  padding: 0;
+  aspect-ratio: 2/1;
+  min-height: auto;
+  text-transform: uppercase;
+  box-shadow: 0 0 3px #333;
+  max-width: 85%;
+  height: clamp(150px, 100%, 100%);
+  margin: 0 auto;
+  overflow: hidden;
+}
+.contact__row__col-card:hover {
+  transform: scale(1.001) translateY(-1%);
+  transition: 0.1s ease;
+}
+.contact__row__col-card-header {
+  background: rgba(255, 255, 255, 0.95);
+}
+.contact__row__col-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 15px;
+}
+.contact__row__col-card-body__phone a {
+  color: #fa4eab;
+}/*# sourceMappingURL=contact.css.map */
