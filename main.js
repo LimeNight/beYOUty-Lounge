@@ -1227,8 +1227,8 @@ let hairdresser = {
 }
 let nail = {
   id: 2,
-  industryName: "Műkörmös",
-  name: "Kata",
+  industryName: "Műköröm",
+  name: "Varga Kata",
   phone: "+36307985774",
   serviceTypes: [
     {

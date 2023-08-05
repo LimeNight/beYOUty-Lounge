@@ -41,6 +41,9 @@ body main section:first-child {
 }
 body main footer {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100px;
   width: 100%;
   background-color: #a8dbba;
