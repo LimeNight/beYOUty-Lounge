@@ -1,0 +1,48 @@
+@import 'https://fonts.googleapis.com/css2?family=Courgette&family=Philosopher&display=swap';
+/*
+    Global color variables
+*/
+/*
+    Global font variables
+*/
+/*
+    Global size variables
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Philosopher", sans-serif;
+}
+
+.location {
+  padding: 50px 30px !important;
+}
+.location__row__title {
+  margin-bottom: 36px;
+  text-decoration: underline;
+}
+.location__row__col {
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+}
+.location__row__col-list {
+  width: 80%;
+  aspect-ratio: 2/1;
+  padding: 0;
+  margin: 0 0;
+  color: #0c140e;
+  list-style-type: none;
+}
+.location__row__col-list a {
+  color: #fa4eab;
+}
+.location__row__col-list a:hover {
+  filter: contrast(50%);
+}
+.location__row__col-iframe {
+  width: clamp(300px, 80%, 80%);
+  aspect-ratio: 2/1;
+  margin: 0;
+}/*# sourceMappingURL=location.css.map */
