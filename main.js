@@ -31,6 +31,40 @@ const init = () => {
 
 }
 
+const titleText = 'beYOUty Lounge Szépségszalon'
+const titleDelay = 200; // Delay between each character change (in milliseconds)
+
+let currentIndex = 0;
+let intervalId;
+
+const animateTitle = () => {
+    if (!isPageVisible()) {
+        clearInterval(intervalId)
+        return
+    }
+
+    document.title = titleText.substring(0, currentIndex);
+    currentIndex = (currentIndex + 1) % (titleText.length + 1)
+    if (currentIndex === 0) {
+        clearInterval(intervalId);
+        setTimeout(() => {
+            intervalId = setInterval(animateTitle, titleDelay)
+        }, 2000)
+    }
+}
+document.addEventListener("visibilitychange", () => {
+    if (isPageVisible()) {
+        intervalId = setInterval(animateTitle, titleDelay);
+    } else {
+        clearInterval(intervalId);
+    }
+});
+
+const isPageVisible = () => {
+    return !document.hidden
+}
+intervalId = setInterval(animateTitle, titleDelay);
+
 class LStorage {
   static set(key = '', data = ''){
     window.localStorage.setItem(key, data)
