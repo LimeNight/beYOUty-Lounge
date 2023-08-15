@@ -18,6 +18,7 @@
   height: 56px;
   width: 100%;
   background: #ffd7f1;
+  box-shadow: 0 1px 5px #333;
 }
 .navbar .container-fluid {
   background-color: inherit;
@@ -40,7 +41,7 @@
   height: 40px;
   width: 130px;
   aspect-ratio: 1;
-  background: url("../svg/logos/bl2.svg") no-repeat center;
-  background-size: cover;
+  background: url("../img/spa.png") no-repeat center;
+  background-size: contain;
   filter: drop-shadow(0 0 2px #333);
 }/*# sourceMappingURL=nav.css.map */

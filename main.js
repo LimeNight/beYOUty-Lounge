@@ -2,12 +2,24 @@
  * GLOBAL VARIABLES
  * -contentManager
 */
-let contentManager;
+let contentManager, main, expanderBtn, expandedMenu;
 /**
  * PAGE LOADED
  * -initialize
 */
 const init = () => {
+  main = document.getElementById('MainSection')
+  expanderBtn = document.querySelector('.navbar-toggler')
+  expandedMenu = document.getElementById('navbarNav')
+
+  main.addEventListener('click', () => {
+    let isExpanded = expanderBtn.getAttribute('aria-expanded'); 
+    if (isExpanded === 'true') {
+      expanderBtn.setAttribute('aria-expanded', false);
+      expanderBtn.classList = 'navbar-toggler collapsed'
+      expandedMenu.classList.toggle('show')
+    }
+  })
   // Add datas to controller
   ServiceController.add(_data)
   // Init contatent manager
@@ -16,6 +28,7 @@ const init = () => {
 
   let serviceInfos = ServiceController.getAll()
   ContactManager.draw(serviceInfos)
+
 }
 
 class LStorage {
@@ -373,15 +386,6 @@ class ContactManager {
     return col
   }
 }
-
-// CARD EXAMPLE
-// <div class="card" style="width: 18rem;">
-//   <img src="..." class="card-img-top" alt="...">
-//   <div class="card-body">
-//     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//   </div>
-// </div>
-
 
 /**
  * DATA
