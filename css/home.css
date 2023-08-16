@@ -22,14 +22,30 @@
   background-size: cover;
 }
 .home__bg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   height: 100%;
   background: url("../img/spa.png") no-repeat center;
-  background-size: 80vh;
+  background-size: contain;
+  margin: 0 auto;
+}
+.home::after {
+  content: "";
+  height: 20px;
+  width: 100px;
+  background: url("../svg/icons/down.svg") no-repeat center;
+  background-size: contain;
+  position: absolute;
+  bottom: 10px;
+  left: calc(50% - 50px);
+  animation: downArrow 1s infinite;
+}
+
+@keyframes downArrow {
+  50% {
+    bottom: 7px;
+  }
+  100% {
+    bottom: 10px;
+  }
 }/*# sourceMappingURL=home.css.map */
